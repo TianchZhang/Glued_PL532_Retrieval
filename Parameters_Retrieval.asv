@@ -30,7 +30,6 @@ for yf = 1:2
             VDR = (CH2PC_Data .* gainratio) ./ CH1PC_Data;
             data_flag = ones(1,1440);
             data_flag(isnan(h5read(fname,'/CH1/background').'))=0;
-            
         end
         
     end
