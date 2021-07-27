@@ -10,7 +10,7 @@
 
 
 year_file = ["2019","2020"];
-gainratio = 0.0829;
+gainratio = 0.0749;
 
 savefile = 'D:\DATA\PLidar532\Parameter\';
 for yf = 1:2
