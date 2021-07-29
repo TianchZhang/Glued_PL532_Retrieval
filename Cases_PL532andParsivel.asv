@@ -7,14 +7,12 @@ PL_Stra_day_30 = {};
 PL_Stra_detal_30 = {};
 
 load('D:\DATA\Parsivel_temporary\Rainevents.mat','Rainev_day_30');
-load('D:\DATA\Parsivel_temporary\Rainevents.mat','Rainev_detal_30');
-for num = 1:length(Rainev_day_30)
-    plname = strcat('D:\DATA\PLidar532\Parameter\',char(Rainev_day_30(num)),'.h5');
+for num = 1:length(Rainev_day)
+    plname = strcat('D:\DATA\PLidar532\Parameter\',char(Rainev_day(num)),'.h5');
+    data_flag = h5read(plname, '/data_flag').';
+    pvname = strcat('D:\DATA\OTTParsivel\nonQC2019-\',char(Rainev_day(num)),'.h5');
+    typeflag = h5read(pvname, '/typeflag').';
     if isfile(plname)
-        data_flag = h5read(plname, '/data_flag');
-        pvname = strcat('D:\DATA\OTTParsivel\nonQC2019-\',char(Rainev_day_30(num)),'.h5');
-        typeflag = h5read(pvname, '/typeflag').';
-        typeflag(typeflag < 0) = 0;
         PL_Stra_day_30 = [PL_Stra_day_30;char(Rainev_day_30(num))];
         PL_Stra_detal_30 = [PL_Stra_detal_30;data_flag .* typeflag];
     end
