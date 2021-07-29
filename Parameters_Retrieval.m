@@ -14,7 +14,7 @@ gainratio = 0.0749;
 
 savefile = 'D:\DATA\PLidar532\Parameter\';
 for yf = 1:2
-    root_file = ['D:\DATA\PLidar532\',char(year_file(1,yf))];
+    root_file = ['E:\DATA\PLidar532\',char(year_file(1,yf))];
     mon_list = dir(root_file);
     for df = 3:length(mon_list)
         day_list = dir(strcat(mon_list(df).folder,'\',mon_list(df).name,'\*.h5'));
@@ -27,9 +27,9 @@ for yf = 1:2
                 - repmat(h5read(fname,'/CH1/background'),5333,1);
             CH2PC_Data = h5read(fname,'/CH2/gluedPC_Data', start, count).'...
                 - repmat(h5read(fname,'/CH1/background'), 5333, 1);
-            h = repmat(h5read(fname,'/range', [1 1], [1 5333]).', 1, 1440);
+            height = repmat(h5read(fname,'/range', [1 1], [1 5333]).', 1, 1440);
             Mie = CH1PC_Data + CH2PC_Data .* gainratio;
-            RCS = Mie .* h .^ 2;
+            RCS = Mie .* height .^ 2;
             VDR = NaN(5333,1440);
             VDR(~isnan(CH2PC_Data) & ~isnan(CH1PC_Data)) = gainratio .* CH2PC_Data(~isnan(CH2PC_Data) & ~isnan(CH1PC_Data)) ./ CH1PC_Data(~isnan(CH2PC_Data) & ~isnan(CH1PC_Data));
             VDR(VDR <0) = 0;
@@ -62,6 +62,8 @@ for yf = 1:2
             h5write(savename,'/VDR',VDR);
             h5create(savename,'/data_flag',size(data_flag));
             h5write(savename,'/data_flag',data_flag);
+            h5create(savename,'/height',size(height));
+            h5write(savename,'/height',height);
 %             hdf5writedata(savename, '/RCS', RCS, ...
 %                 'dataAttr', ...
 %                 struct('Units', '', 'long_name', 'range Corrected Signal'));
