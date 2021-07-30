@@ -38,7 +38,7 @@ addRequired(p, 'RCS', @isnumeric);
 addParameter(p, 'scale', 'linear', @ischar);
 addParameter(p, 'tRange', [0, 1], @isnumeric);
 addParameter(p, 'hRange', [0, 100], @isnumeric);
-addParameter(p, 'cRange', [0, 1e12], @isnumeric);
+addParameter(p, 'cRange', [0, 1e6], @isnumeric);
 
 addParameter(p, 'cmap', 'myjet', @ischar);
 
